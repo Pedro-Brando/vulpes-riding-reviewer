@@ -225,7 +225,7 @@ input[type=range]:focus-visible{outline:3px solid var(--flare);outline-offset:6p
 }
 .prog-quote span{animation:quoteIn .45s ease both}
 @keyframes quoteIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.prog-pct{margin-top:6px;text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--ink-soft)}
+.prog-pct{margin:2px 0 0 60px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--ink-soft)}
 
 /* ---------- verdict ---------- */
 .verdict{text-align:center;padding:8px 4px 6px;display:none}
@@ -280,34 +280,37 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
 <div class="wrap">
 
   <header class="mast">
+    <!-- VULPES-01 head. Twin of the badge in the progress block: edit both together. -->
     <svg class="crest" viewBox="0 0 100 100" aria-hidden="true">
       <!-- ear-guard intakes -->
-      <path d="M19 41 L26 38 L26 60 L19 57 Z" fill="#E8547E"/>
-      <path d="M81 41 L74 38 L74 60 L81 57 Z" fill="#E8547E"/>
-      <!-- helmet shell -->
-      <path d="M50 19 L68 25 L75 39 L75 55 L67 63 L64 77 L57 87 L43 87 L36 77 L33 63 L25 55 L25 39 L32 25 Z" fill="#FFF6F0" stroke="#39294F" stroke-width="2.4" stroke-linejoin="round"/>
-      <!-- cheek shading -->
-      <path d="M33 63 L36 77 L43 87 L50 87 L50 63 Z" fill="#FFE7EF" opacity=".9"/>
-      <!-- visor recess -->
-      <path d="M29 42 L71 42 L71 58 L29 58 Z" fill="#2A1B3D"/>
-      <path class="eye" d="M31 45 L46 43 L46 56 L32 56 Z" fill="#4FDCC0"/>
-      <path class="eye" d="M69 45 L54 43 L54 56 L68 56 Z" fill="#4FDCC0"/>
-      <path d="M46 41 L54 41 L54 59 L46 59 Z" fill="#FFF6F0"/>
-      <!-- mouth vent -->
-      <path d="M38 61 L62 61 L60 75 L40 75 Z" fill="#2A1B3D"/>
-      <g fill="#FFF6F0" opacity=".85">
-        <path d="M42.5 63.5 L45 63.5 L44 72.5 L41.8 72.5 Z"/>
-        <path d="M48.7 63.5 L51.3 63.5 L51.3 72.5 L48.7 72.5 Z"/>
-        <path d="M55 63.5 L57.5 63.5 L58.2 72.5 L56 72.5 Z"/>
+      <g stroke="#39294F" stroke-width="2.2" stroke-linejoin="round">
+        <path d="M29 42 L19 38.5 L18 59 L29 56 Z" fill="#E8547E"/>
+        <path d="M71 42 L81 38.5 L82 59 L71 56 Z" fill="#E8547E"/>
       </g>
-      <!-- vulcans -->
-      <circle cx="30.5" cy="62" r="2.6" fill="#FFC94B"/>
-      <circle cx="69.5" cy="62" r="2.6" fill="#FFC94B"/>
-      <!-- V-fin, swept back like ears -->
-      <path d="M50 31 L4 11 L13 27 L48 38 Z" fill="#FFC94B"/>
-      <path d="M50 31 L96 11 L87 27 L52 38 Z" fill="#FFC94B"/>
-      <path d="M50 8 L46 33 L54 33 Z" fill="#FFC94B"/>
-      <path d="M50 28 L55.5 34 L50 40 L44.5 34 Z" fill="#E8547E" stroke="#39294F" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M22 43.5 L26 42.5 L26 53 L22 54 Z" fill="#FFC94B"/>
+      <path d="M78 43.5 L74 42.5 L74 53 L78 54 Z" fill="#FFC94B"/>
+      <!-- helmet shell -->
+      <path d="M50 22 L67 27 L72 37 L72 51 L68 59 L65 71 L59 80 L54 86 L46 86 L41 80 L35 71 L32 59 L28 51 L28 37 L33 27 Z" fill="#FFF6F0" stroke="#39294F" stroke-width="2.2" stroke-linejoin="round"/>
+      <!-- brow trim -->
+      <path d="M31 36 L69 36 L69 40 L31 40 Z" fill="#FFC94B"/>
+      <!-- visor recess and twin eye cameras -->
+      <path d="M31 39.5 L69 39.5 L69 54 L31 54 Z" fill="#2A1B3D"/>
+      <path class="eye" d="M33.5 42.5 L45.5 41.5 L45.5 51.5 L34 52 Z" fill="#4FDCC0"/>
+      <path class="eye" d="M66.5 42.5 L54.5 41.5 L54.5 51.5 L66 52 Z" fill="#4FDCC0"/>
+      <path d="M46 38 L54 38 L54 54 L46 54 Z" fill="#FFF6F0"/>
+      <!-- faceplate, chin vent, vulcans -->
+      <path d="M34 54 L66 54 L62 70 L55 77 L45 77 L38 70 Z" fill="#FFE7EF" stroke="#39294F" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M41 59 L59 59 L58 65.5 L42 65.5 Z" fill="#2A1B3D"/>
+      <path d="M43 68 L57 68 L56.4 70 L43.6 70 Z" fill="#FFC94B"/>
+      <circle cx="36" cy="58" r="1.9" fill="#FFC94B"/>
+      <circle cx="64" cy="58" r="1.9" fill="#FFC94B"/>
+      <!-- V-fin -->
+      <g fill="#FFC94B" stroke="#39294F" stroke-width="1.7" stroke-linejoin="round">
+        <path d="M50 25 L11 10 L18 23 L48 32 Z"/>
+        <path d="M50 25 L89 10 L82 23 L52 32 Z"/>
+        <path d="M50 6 L46.5 26 L53.5 26 Z"/>
+      </g>
+      <path d="M50 18 L54.5 25 L50 32 L45.5 25 Z" fill="#E8547E" stroke="#39294F" stroke-width="1.7" stroke-linejoin="round"/>
     </svg>
     <p class="eyebrow">Mobile suit VULPES-01 &middot; evaluation type</p>
     <h1>Vulpes <em>Riding</em> Reviewer</h1>
@@ -364,20 +367,29 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
       <div class="prog-bar"><div class="prog-fill" id="fill"></div></div>
       <div class="prog-head">
         <svg class="crest crest-sm live" viewBox="0 0 100 100" aria-hidden="true">
-          <path d="M19 41 L26 38 L26 60 L19 57 Z" fill="#E8547E"/>
-          <path d="M81 41 L74 38 L74 60 L81 57 Z" fill="#E8547E"/>
-          <path d="M50 19 L68 25 L75 39 L75 55 L67 63 L64 77 L57 87 L43 87 L36 77 L33 63 L25 55 L25 39 L32 25 Z" fill="#FFF6F0" stroke="#39294F" stroke-width="2.4" stroke-linejoin="round"/>
-          <path d="M29 42 L71 42 L71 58 L29 58 Z" fill="#2A1B3D"/>
-          <path class="eye" d="M31 45 L46 43 L46 56 L32 56 Z" fill="#4FDCC0"/>
-          <path class="eye" d="M69 45 L54 43 L54 56 L68 56 Z" fill="#4FDCC0"/>
-          <path d="M46 41 L54 41 L54 59 L46 59 Z" fill="#FFF6F0"/>
-          <path d="M38 61 L62 61 L60 75 L40 75 Z" fill="#2A1B3D"/>
-          <circle cx="30.5" cy="62" r="2.6" fill="#FFC94B"/>
-          <circle cx="69.5" cy="62" r="2.6" fill="#FFC94B"/>
-          <path d="M50 31 L4 11 L13 27 L48 38 Z" fill="#FFC94B"/>
-          <path d="M50 31 L96 11 L87 27 L52 38 Z" fill="#FFC94B"/>
-          <path d="M50 8 L46 33 L54 33 Z" fill="#FFC94B"/>
-          <path d="M50 28 L55.5 34 L50 40 L44.5 34 Z" fill="#E8547E" stroke="#39294F" stroke-width="1.6" stroke-linejoin="round"/>
+          <g stroke="#39294F" stroke-width="2.2" stroke-linejoin="round">
+            <path d="M29 42 L19 38.5 L18 59 L29 56 Z" fill="#E8547E"/>
+            <path d="M71 42 L81 38.5 L82 59 L71 56 Z" fill="#E8547E"/>
+          </g>
+          <path d="M22 43.5 L26 42.5 L26 53 L22 54 Z" fill="#FFC94B"/>
+          <path d="M78 43.5 L74 42.5 L74 53 L78 54 Z" fill="#FFC94B"/>
+          <path d="M50 22 L67 27 L72 37 L72 51 L68 59 L65 71 L59 80 L54 86 L46 86 L41 80 L35 71 L32 59 L28 51 L28 37 L33 27 Z" fill="#FFF6F0" stroke="#39294F" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M31 36 L69 36 L69 40 L31 40 Z" fill="#FFC94B"/>
+          <path d="M31 39.5 L69 39.5 L69 54 L31 54 Z" fill="#2A1B3D"/>
+          <path class="eye" d="M33.5 42.5 L45.5 41.5 L45.5 51.5 L34 52 Z" fill="#4FDCC0"/>
+          <path class="eye" d="M66.5 42.5 L54.5 41.5 L54.5 51.5 L66 52 Z" fill="#4FDCC0"/>
+          <path d="M46 38 L54 38 L54 54 L46 54 Z" fill="#FFF6F0"/>
+          <path d="M34 54 L66 54 L62 70 L55 77 L45 77 L38 70 Z" fill="#FFE7EF" stroke="#39294F" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M41 59 L59 59 L58 65.5 L42 65.5 Z" fill="#2A1B3D"/>
+          <path d="M43 68 L57 68 L56.4 70 L43.6 70 Z" fill="#FFC94B"/>
+          <circle cx="36" cy="58" r="1.9" fill="#FFC94B"/>
+          <circle cx="64" cy="58" r="1.9" fill="#FFC94B"/>
+          <g fill="#FFC94B" stroke="#39294F" stroke-width="1.7" stroke-linejoin="round">
+            <path d="M50 25 L11 10 L18 23 L48 32 Z"/>
+            <path d="M50 25 L89 10 L82 23 L52 32 Z"/>
+            <path d="M50 6 L46.5 26 L53.5 26 Z"/>
+          </g>
+          <path d="M50 18 L54.5 25 L50 32 L45.5 25 Z" fill="#E8547E" stroke="#39294F" stroke-width="1.7" stroke-linejoin="round"/>
         </svg>
         <p class="prog-quote" id="quote" role="status" aria-live="polite"><span>Spooling up the judgement core…</span></p>
       </div>
