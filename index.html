@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vulpes Riding Reviewer</title>
+<meta name="description" content="Certified equestrian judging by a fox with no formal qualifications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..800,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Nunito:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%A6%8A%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --blush:#FFEFF5;
+  --peri:#EBE4FF;
+  --ink:#39294F;
+  --ink-soft:#7A6A92;
+  --fox:#FF7A3D;
+  --fox-deep:#E2551C;
+  --rosette:#E8547E;
+  --mint:#4FDCC0;
+  --gold:#FFC94B;
+  --paper:#FFFFFF;
+  --line:rgba(57,41,79,.14);
+  --shadow-md:0 10px 30px -12px rgba(57,41,79,.35);
+  --r-lg:28px;
+  --r-md:18px;
+  --r-sm:12px;
+  --display:"Fraunces",Georgia,serif;
+  --body:"Nunito","Segoe UI",system-ui,sans-serif;
+  --mono:"Space Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  min-height:100vh;
+  font-family:var(--body);
+  color:var(--ink);
+  background:
+    radial-gradient(1100px 700px at 12% -8%, #FFE3EE 0%, rgba(255,227,238,0) 62%),
+    radial-gradient(900px 620px at 92% 4%, #E3EEFF 0%, rgba(227,238,255,0) 58%),
+    linear-gradient(168deg, var(--blush) 0%, var(--peri) 100%);
+  background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(circle at 1px 1px, rgba(57,41,79,.10) 1px, transparent 0);
+  background-size:26px 26px;
+  opacity:.5;
+}
+.wrap{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:34px 20px 80px}
+
+/* ---------- masthead ---------- */
+.mast{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:30px}
+.crest{width:82px;height:82px;filter:drop-shadow(0 8px 14px rgba(226,85,28,.28))}
+.eyebrow{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--ink-soft);margin:0;
+  display:flex;align-items:center;gap:10px;
+}
+.eyebrow::before,.eyebrow::after{content:"";width:26px;height:1px;background:var(--line)}
+h1{
+  font-family:var(--display);
+  font-variation-settings:"SOFT" 80,"WONK" 1,"opsz" 96;
+  font-weight:700;font-size:clamp(35px,8vw,58px);line-height:.98;letter-spacing:-.02em;
+  margin:0;
+}
+h1 em{font-style:italic;color:var(--fox-deep);font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 96}
+.dek{margin:0;max-width:44ch;color:var(--ink-soft);font-size:15.5px;line-height:1.55}
+
+/* ---------- card ---------- */
+.card{
+  background:var(--paper);
+  border:1.5px solid var(--line);
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow-md);
+  padding:22px;
+}
+
+/* dropzone */
+.drop{
+  border:2.5px dashed rgba(255,122,61,.45);
+  border-radius:var(--r-md);
+  background:linear-gradient(180deg,#FFF9F5,#FFF3F7);
+  padding:44px 24px;
+  text-align:center;
+  cursor:pointer;
+  transition:border-color .2s,background .2s,transform .2s;
+  display:block;width:100%;
+}
+.drop:hover,.drop:focus-visible{border-color:var(--fox);background:linear-gradient(180deg,#FFF4EC,#FFECF3);transform:translateY(-2px)}
+.drop.is-over{border-color:var(--mint);background:#F0FFFB;transform:scale(1.01)}
+.drop-emoji{font-size:38px;line-height:1;display:block;margin-bottom:12px}
+.drop-title{font-family:var(--display);font-variation-settings:"SOFT" 70,"WONK" 1;font-weight:700;font-size:21px;margin:0 0 6px}
+.drop-hint{margin:0;font-size:13.5px;color:var(--ink-soft)}
+input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events:none}
+
+/* video stage */
+.stage{position:relative;border-radius:var(--r-md);overflow:hidden;background:#221733;aspect-ratio:16/10}
+.stage video{width:100%;height:100%;object-fit:contain;display:block;background:#221733}
+.filename{
+  margin:12px 2px 0;font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);
+  display:flex;justify-content:space-between;gap:12px;align-items:center;
+}
+.linkish{background:none;border:0;padding:0;font:inherit;color:var(--fox-deep);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.linkish:hover{color:var(--rosette)}
+
+/* ---------- scan overlay ---------- */
+.scan{position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .35s}
+.scan.on{opacity:1}
+.scan-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(79,220,192,.16) 1px,transparent 1px),linear-gradient(90deg,rgba(79,220,192,.16) 1px,transparent 1px);
+  background-size:34px 34px;
+  mix-blend-mode:screen;
+}
+.scan-tint{position:absolute;inset:0;background:radial-gradient(80% 60% at 50% 50%, rgba(79,220,192,.06), rgba(34,23,51,.5))}
+.scan-line{
+  position:absolute;left:0;right:0;height:80px;
+  background:linear-gradient(180deg,rgba(79,220,192,0) 0%,rgba(79,220,192,.30) 62%,rgba(255,255,255,.85) 78%,rgba(79,220,192,0) 100%);
+  animation:sweep 2.1s cubic-bezier(.5,0,.5,1) infinite;
+}
+@keyframes sweep{0%{top:-80px}100%{top:100%}}
+.corner{position:absolute;width:26px;height:26px;border:2.5px solid var(--mint);opacity:.9}
+.corner.tl{top:12px;left:12px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+.corner.tr{top:12px;right:12px;border-left:0;border-bottom:0;border-radius:0 6px 0 0}
+.corner.bl{bottom:12px;left:12px;border-right:0;border-top:0;border-radius:0 0 0 6px}
+.corner.br{bottom:12px;right:12px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+.tracker{
+  position:absolute;border:2px solid rgba(255,255,255,.9);border-radius:8px;
+  transition:all .9s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 0 0 2px rgba(79,220,192,.35) inset;
+}
+.tracker span{
+  position:absolute;top:-11px;left:-2px;
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--mint);color:#123;padding:1px 5px;border-radius:4px;white-space:nowrap;
+}
+.telemetry{
+  position:absolute;left:16px;bottom:14px;right:16px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.82);
+  display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;text-shadow:0 1px 3px rgba(0,0,0,.6);
+}
+
+/* ---------- severity ---------- */
+.sev{margin-top:22px;padding-top:20px;border-top:1.5px dashed var(--line)}
+.sev-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
+.sev-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
+.sev-value{font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;font-size:20px;color:var(--fox-deep)}
+input[type=range]{
+  -webkit-appearance:none;appearance:none;width:100%;background:transparent;margin:0;cursor:grab;
+}
+input[type=range]:active{cursor:grabbing}
+input[type=range]::-webkit-slider-runnable-track{
+  height:12px;border-radius:99px;border:1.5px solid var(--line);
+  background:linear-gradient(90deg,var(--mint),var(--gold) 48%,var(--rosette));
+}
+input[type=range]::-moz-range-track{
+  height:12px;border-radius:99px;border:1.5px solid var(--line);
+  background:linear-gradient(90deg,var(--mint),var(--gold) 48%,var(--rosette));
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;appearance:none;width:30px;height:30px;margin-top:-10px;
+  border-radius:50%;background:var(--paper);border:3px solid var(--fox);
+  box-shadow:0 3px 10px rgba(226,85,28,.4);transition:transform .15s;
+}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
+input[type=range]::-moz-range-thumb{
+  width:26px;height:26px;border-radius:50%;background:var(--paper);border:3px solid var(--fox);
+  box-shadow:0 3px 10px rgba(226,85,28,.4);
+}
+input[type=range]:focus-visible{outline:3px solid var(--fox);outline-offset:6px;border-radius:99px}
+.ticks{display:flex;justify-content:space-between;margin-top:9px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
+.quip{
+  margin:14px 0 0;font-family:var(--display);font-style:italic;
+  font-variation-settings:"SOFT" 100,"WONK" 1;font-weight:500;font-size:16px;color:var(--ink);
+  min-height:1.5em;
+}
+
+/* ---------- button ---------- */
+.btn{
+  margin-top:22px;width:100%;
+  font-family:var(--display);font-variation-settings:"SOFT" 80,"WONK" 1;font-weight:700;
+  font-size:20px;letter-spacing:-.01em;
+  color:#fff;background:var(--fox);
+  border:0;border-radius:var(--r-md);padding:17px 20px;cursor:pointer;
+  box-shadow:0 5px 0 var(--fox-deep);
+  transition:transform .12s,box-shadow .12s,background .2s;
+}
+.btn:hover:not(:disabled){background:#FF8A52;transform:translateY(-2px);box-shadow:0 7px 0 var(--fox-deep)}
+.btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 var(--fox-deep)}
+.btn:disabled{background:#E4DCEF;color:#A697B8;box-shadow:0 5px 0 #CFC3E0;cursor:not-allowed}
+.btn:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
+.btn.ghost{background:transparent;color:var(--fox-deep);box-shadow:none;border:2px solid rgba(255,122,61,.5);font-size:16px;padding:13px 20px}
+.btn.ghost:hover{background:#FFF3EC;transform:none;box-shadow:none}
+
+/* progress */
+.prog{margin-top:20px;display:none}
+.prog.on{display:block}
+.prog-bar{height:10px;border-radius:99px;background:#F0EAF8;border:1.5px solid var(--line);overflow:hidden}
+.prog-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--fox));transition:width .4s ease}
+.prog-quote{
+  margin:16px 0 0;text-align:center;
+  font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:600;
+  font-size:clamp(17px,4.2vw,21px);line-height:1.35;min-height:2.7em;
+  display:flex;align-items:center;justify-content:center;
+}
+.prog-quote span{animation:quoteIn .45s ease both}
+@keyframes quoteIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.prog-pct{margin-top:6px;text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;color:var(--ink-soft)}
+
+/* ---------- verdict ---------- */
+.verdict{text-align:center;padding:8px 4px 6px;display:none}
+.verdict.on{display:block}
+.rosette{width:190px;height:210px;margin:0 auto;display:block;animation:stamp .75s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes stamp{
+  0%{opacity:0;transform:scale(2.1) rotate(-16deg)}
+  60%{opacity:1;transform:scale(.94) rotate(3deg)}
+  100%{opacity:1;transform:scale(1) rotate(-2deg)}
+}
+.rosette-petals{transform-origin:95px 82px;animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.verdict h2{
+  font-family:var(--display);font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 120;
+  font-weight:700;font-size:clamp(27px,6.4vw,40px);line-height:1.08;letter-spacing:-.02em;
+  margin:14px 0 10px;color:var(--rosette);
+  animation:quoteIn .5s .35s both;
+}
+.verdict p{margin:0 auto;max-width:38ch;color:var(--ink-soft);font-size:15px;line-height:1.6;animation:quoteIn .5s .5s both}
+.scores{
+  display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:22px 0 4px;
+  animation:quoteIn .5s .65s both;
+}
+.score{
+  border:1.5px solid var(--line);border-radius:var(--r-sm);padding:9px 14px;background:#FFF9FB;
+  min-width:104px;
+}
+.score b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;font-size:19px;color:var(--fox-deep)}
+.score i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+
+/* confetti */
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.confetti i{position:absolute;top:-24px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(108vh) rotate(760deg);opacity:.15}}
+
+footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-soft);line-height:2}
+.hidden{display:none !important}
+
+@media (max-width:520px){
+  .wrap{padding:24px 14px 60px}
+  .card{padding:16px;border-radius:22px}
+  .stage{aspect-ratio:4/3}
+  .score{min-width:92px;padding:8px 11px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  .scan-line{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <svg class="crest" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M18 22 L14 6 L33 16 Z" fill="#FF7A3D"/>
+      <path d="M20.5 20 L18.5 11 L28.5 16.5 Z" fill="#FFC2C9"/>
+      <path d="M82 22 L86 6 L67 16 Z" fill="#FF7A3D"/>
+      <path d="M79.5 20 L81.5 11 L71.5 16.5 Z" fill="#FFC2C9"/>
+      <path d="M50 14 C74 14 88 30 88 50 C88 72 71 88 50 88 C29 88 12 72 12 50 C12 30 26 14 50 14 Z" fill="#FF7A3D"/>
+      <path d="M50 46 C62 46 70 54 70 64 C70 76 60 86 50 86 C40 86 30 76 30 64 C30 54 38 46 50 46 Z" fill="#FFF6F0"/>
+      <ellipse cx="36" cy="47" rx="5.4" ry="6" fill="#39294F"/>
+      <ellipse cx="64" cy="47" rx="5.4" ry="6" fill="#39294F"/>
+      <circle cx="37.8" cy="45" r="1.9" fill="#fff"/>
+      <circle cx="65.8" cy="45" r="1.9" fill="#fff"/>
+      <ellipse cx="50" cy="61" rx="5" ry="4" fill="#39294F"/>
+      <path d="M50 65 v4 M50 69 c-4 0 -6 -2 -8 -3 M50 69 c4 0 6 -2 8 -3" stroke="#39294F" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="26" cy="58" r="5" fill="#FFB3C4" opacity=".75"/>
+      <circle cx="74" cy="58" r="5" fill="#FFB3C4" opacity=".75"/>
+    </svg>
+    <p class="eyebrow">Panel of one fox</p>
+    <h1>Vulpes <em>Riding</em> Reviewer</h1>
+    <p class="dek">Certified equestrian judging by a fox with no formal qualifications. Your video stays on your device, it is only ever watched by the fox.</p>
+  </header>
+
+  <main class="card">
+
+    <!-- UPLOAD -->
+    <div id="uploadPane">
+      <label class="drop" id="drop" for="file" tabindex="0">
+        <span class="drop-emoji">🐴</span>
+        <span class="drop-title" style="display:block">Drop your ride here</span>
+        <span class="drop-hint" style="display:block">Or click to pick a video. Trot, canter, jump, standing next to the horse looking lovely, all accepted.</span>
+      </label>
+      <input type="file" id="file" accept="video/*">
+    </div>
+
+    <!-- VIDEO -->
+    <div id="videoPane" class="hidden">
+      <div class="stage">
+        <video id="vid" playsinline muted loop controls></video>
+        <div class="scan" id="scan" aria-hidden="true">
+          <div class="scan-tint"></div>
+          <div class="scan-grid"></div>
+          <div class="scan-line"></div>
+          <div class="corner tl"></div><div class="corner tr"></div>
+          <div class="corner bl"></div><div class="corner br"></div>
+          <div class="tracker" id="t1" style="left:18%;top:22%;width:30%;height:34%"><span>posture</span></div>
+          <div class="tracker" id="t2" style="left:56%;top:52%;width:24%;height:28%"><span>hooves</span></div>
+          <div class="tracker" id="t3" style="left:30%;top:60%;width:22%;height:22%"><span>vibes</span></div>
+          <div class="telemetry"><span id="tele1">stirrup.sync 0%</span><span id="tele2">mane.gloss 0%</span><span id="tele3">good.girl detected</span></div>
+        </div>
+      </div>
+      <p class="filename"><span id="fname">ride.mp4</span><button class="linkish" id="swap" type="button">Use a different video</button></p>
+    </div>
+
+    <!-- SEVERITY -->
+    <div class="sev" id="sevPane">
+      <div class="sev-head">
+        <span class="sev-label">Judging severity</span>
+        <span class="sev-value" id="sevName">Strict</span>
+      </div>
+      <input type="range" id="sev" min="1" max="5" step="1" value="3" aria-label="Judging severity" aria-describedby="quip">
+      <div class="ticks"><span>Gentle</span><span>Fair</span><span>Strict</span><span>Harsh</span><span>Olympic</span></div>
+      <p class="quip" id="quip">The fox is taking notes.</p>
+    </div>
+
+    <button class="btn" id="judge" disabled>Add a video first</button>
+
+    <!-- PROGRESS -->
+    <div class="prog" id="prog">
+      <div class="prog-bar"><div class="prog-fill" id="fill"></div></div>
+      <p class="prog-quote" id="quote" role="status" aria-live="polite"><span>Warming up the fox…</span></p>
+      <p class="prog-pct" id="pct">0% reviewed</p>
+    </div>
+
+    <!-- VERDICT -->
+    <div class="verdict" id="verdict">
+      <svg class="rosette" viewBox="0 0 190 210" role="img" aria-label="First place rosette awarding an A plus">
+        <path d="M74 122 L58 204 L86 186 L95 206 L104 186 L132 204 L116 122 Z" fill="#E8547E"/>
+        <path d="M74 122 L66 162 L95 150 L124 162 L116 122 Z" fill="#C93E66"/>
+        <g class="rosette-petals">
+          <g fill="#FFC94B">
+            <ellipse cx="95" cy="24" rx="15" ry="26"/>
+            <ellipse cx="95" cy="24" rx="15" ry="26" transform="rotate(45 95 82)"/>
+            <ellipse cx="95" cy="24" rx="15" ry="26" transform="rotate(90 95 82)"/>
+            <ellipse cx="95" cy="24" rx="15" ry="26" transform="rotate(135 95 82)"/>
+            <ellipse cx="95" cy="24" rx="15" ry="26" transform="rotate(180 95 82)"/>
+            <ellipse cx="95" cy="24" rx="15" ry="26" transform="rotate(225 95 82)"/>
+            <ellipse cx="95" cy="24" rx="15" ry="26" transform="rotate(270 95 82)"/>
+            <ellipse cx="95" cy="24" rx="15" ry="26" transform="rotate(315 95 82)"/>
+          </g>
+          <g fill="#FF7A3D">
+            <ellipse cx="95" cy="38" rx="12" ry="22" transform="rotate(22 95 82)"/>
+            <ellipse cx="95" cy="38" rx="12" ry="22" transform="rotate(67 95 82)"/>
+            <ellipse cx="95" cy="38" rx="12" ry="22" transform="rotate(112 95 82)"/>
+            <ellipse cx="95" cy="38" rx="12" ry="22" transform="rotate(157 95 82)"/>
+            <ellipse cx="95" cy="38" rx="12" ry="22" transform="rotate(202 95 82)"/>
+            <ellipse cx="95" cy="38" rx="12" ry="22" transform="rotate(247 95 82)"/>
+            <ellipse cx="95" cy="38" rx="12" ry="22" transform="rotate(292 95 82)"/>
+            <ellipse cx="95" cy="38" rx="12" ry="22" transform="rotate(337 95 82)"/>
+          </g>
+        </g>
+        <circle cx="95" cy="82" r="42" fill="#FFF6F0" stroke="#E8547E" stroke-width="4"/>
+        <text x="95" y="97" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-weight="700" font-size="44" fill="#E2551C">A+</text>
+      </svg>
+      <h2>A+ for effort for my pookie :)</h2>
+      <p>Ruling is final. The severity slider was noted, considered, and gently ignored. The fox has left the arena.</p>
+      <div class="scores">
+        <div class="score"><b>A+</b><i>Posture</i></div>
+        <div class="score"><b>A+</b><i>Technique</i></div>
+        <div class="score"><b>Delighted</b><i>Horse's view</i></div>
+      </div>
+      <button class="btn ghost" id="again" type="button">Judge another ride</button>
+    </div>
+
+  </main>
+
+  <footer>
+    Vulpes Riding Reviewer &middot; No videos are uploaded anywhere<br>
+    Judging conducted entirely in your browser by one (1) fox
+  </footer>
+</div>
+
+<script>
+(function(){
+  var $ = function(id){ return document.getElementById(id); };
+
+  var SEVERITY = [
+    { name:"Gentle",  quip:"The fox is here to be nice, mostly." },
+    { name:"Fair",    quip:"The fox has put on its reading glasses." },
+    { name:"Strict",  quip:"The fox is taking notes." },
+    { name:"Harsh",   quip:"The fox has requested a slow-motion replay." },
+    { name:"Olympic", quip:"The fox has flown in a second fox." }
+  ];
+
+  var QUOTES = [
+    "Judging your horse riding skills…",
+    "Measuring posture against 400 years of dressage doctrine…",
+    "Counting hooves. Expecting four.",
+    "Consulting the horse for a second opinion…",
+    "Assessing rider and horse vibe alignment…",
+    "Calibrating stirrup enthusiasm…",
+    "Reviewing the trot. Reviewing the trot again.",
+    "Asking the fox panel to stop arguing…",
+    "Checking whether the horse is also having a nice time…",
+    "Cross-referencing against Olympic footage. You're taller.",
+    "Weighing effort. It is heavy.",
+    "Running canter smoothness diagnostics…",
+    "Detecting one very good girl. Possibly two.",
+    "Comparing with last week. You improved.",
+    "Scanning for helmet. Found it. Excellent.",
+    "Deducting points for nothing so far…",
+    "Consulting the rulebook. The rulebook says be nice."
+  ];
+
+  var video = $("vid"), objectUrl = null, running = false;
+  function rand(a,b){ return Math.random()*(b-a)+a; }
+
+  /* ---------- severity ---------- */
+  var sev = $("sev");
+  function paintSeverity(){
+    var s = SEVERITY[parseInt(sev.value,10)-1];
+    $("sevName").textContent = s.name;
+    $("quip").textContent = s.quip;
+  }
+  sev.addEventListener("input", paintSeverity);
+  paintSeverity();
+
+  /* ---------- file handling ---------- */
+  function loadFile(f){
+    if(!f) return;
+    if(f.type && f.type.indexOf("video") !== 0){
+      $("quip").textContent = "The fox only reviews videos. That was not a video.";
+      return;
+    }
+    if(objectUrl) URL.revokeObjectURL(objectUrl);
+    objectUrl = URL.createObjectURL(f);
+    video.src = objectUrl;
+    video.play().catch(function(){});
+    $("fname").textContent = f.name.length > 34 ? f.name.slice(0,31) + "…" : f.name;
+    $("uploadPane").classList.add("hidden");
+    $("videoPane").classList.remove("hidden");
+    var b = $("judge");
+    b.disabled = false;
+    b.textContent = "Judge my ride";
+  }
+
+  $("file").addEventListener("change", function(e){ loadFile(e.target.files[0]); });
+
+  var drop = $("drop");
+  drop.addEventListener("keydown", function(e){
+    if(e.key === "Enter" || e.key === " "){ e.preventDefault(); $("file").click(); }
+  });
+  ["dragenter","dragover"].forEach(function(ev){
+    drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add("is-over"); });
+  });
+  ["dragleave","drop"].forEach(function(ev){
+    drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove("is-over"); });
+  });
+  drop.addEventListener("drop", function(e){
+    if(e.dataTransfer && e.dataTransfer.files.length) loadFile(e.dataTransfer.files[0]);
+  });
+
+  $("swap").addEventListener("click", function(){ if(!running) $("file").click(); });
+
+  /* ---------- judging ---------- */
+  var intervals = [], timeouts = [];
+  function clearTimers(){
+    intervals.forEach(clearInterval); intervals = [];
+    timeouts.forEach(clearTimeout); timeouts = [];
+  }
+  function shuffle(a){
+    var arr = a.slice(), i, j, t;
+    for(i = arr.length - 1; i > 0; i--){
+      j = Math.floor(Math.random() * (i + 1));
+      t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+
+  $("judge").addEventListener("click", function(){
+    if(running || $("judge").disabled) return;
+    running = true;
+
+    var sevName = SEVERITY[parseInt(sev.value,10)-1].name;
+    var pool = shuffle(QUOTES).slice(0,5);
+    pool.unshift("Judging based on severity: " + sevName + "…");
+
+    $("judge").disabled = true;
+    $("judge").textContent = "The fox is watching…";
+    sev.disabled = true;
+    $("swap").classList.add("hidden");
+    $("scan").classList.add("on");
+    $("prog").classList.add("on");
+    video.play().catch(function(){});
+
+    var qi = 0;
+    function showQuote(){
+      $("quote").innerHTML = "";
+      var s = document.createElement("span");
+      s.textContent = pool[qi % pool.length];
+      $("quote").appendChild(s);
+      qi++;
+    }
+    showQuote();
+    intervals.push(setInterval(showQuote, 1900));
+
+    ["t1","t2","t3"].forEach(function(id){
+      intervals.push(setInterval(function(){
+        var el = $(id);
+        el.style.left = rand(8,58).toFixed(1) + "%";
+        el.style.top = rand(12,56).toFixed(1) + "%";
+        el.style.width = rand(20,34).toFixed(1) + "%";
+        el.style.height = rand(20,34).toFixed(1) + "%";
+      }, rand(850,1400)));
+    });
+
+    intervals.push(setInterval(function(){
+      $("tele1").textContent = "stirrup.sync " + Math.floor(rand(88,100)) + "%";
+      $("tele2").textContent = "mane.gloss " + Math.floor(rand(90,100)) + "%";
+      $("tele3").textContent = Math.random() > .5 ? "good.girl confirmed" : "effort ████████";
+    }, 700));
+
+    var total = 11400, started = Date.now();
+    intervals.push(setInterval(function(){
+      var p = Math.min(99, Math.round((Date.now() - started) / total * 100));
+      $("fill").style.width = p + "%";
+      $("pct").textContent = p + "% reviewed";
+    }, 300));
+
+    timeouts.push(setTimeout(finish, total));
+  });
+
+  function finish(){
+    clearTimers();
+    $("fill").style.width = "100%";
+    $("pct").textContent = "100% reviewed";
+    setTimeout(function(){
+      $("scan").classList.remove("on");
+      $("prog").classList.remove("on");
+      $("sevPane").classList.add("hidden");
+      $("judge").classList.add("hidden");
+      $("verdict").classList.add("on");
+      $("verdict").scrollIntoView({behavior:"smooth", block:"center"});
+      confetti();
+      running = false;
+    }, 450);
+  }
+
+  /* ---------- confetti ---------- */
+  function confetti(){
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var box = document.createElement("div");
+    box.className = "confetti";
+    var colors = ["#FF7A3D","#E8547E","#FFC94B","#4FDCC0","#FFB3C4","#9B7BE0"];
+    for(var i = 0; i < 70; i++){
+      var bit = document.createElement("i");
+      bit.style.left = rand(0,100).toFixed(2) + "%";
+      bit.style.background = colors[i % colors.length];
+      bit.style.animationDuration = rand(2.4,4.6).toFixed(2) + "s";
+      bit.style.animationDelay = rand(0,1.1).toFixed(2) + "s";
+      if(i % 3 === 0) bit.style.borderRadius = "50%";
+      box.appendChild(bit);
+    }
+    document.body.appendChild(box);
+    setTimeout(function(){ box.remove(); }, 6200);
+  }
+
+  /* ---------- reset ---------- */
+  $("again").addEventListener("click", function(){
+    clearTimers();
+    running = false;
+    if(objectUrl){ URL.revokeObjectURL(objectUrl); objectUrl = null; }
+    video.removeAttribute("src");
+    video.load();
+    $("file").value = "";
+    $("videoPane").classList.add("hidden");
+    $("uploadPane").classList.remove("hidden");
+    $("verdict").classList.remove("on");
+    $("sevPane").classList.remove("hidden");
+    $("swap").classList.remove("hidden");
+    $("fill").style.width = "0%";
+    $("pct").textContent = "0% reviewed";
+    sev.disabled = false;
+    var b = $("judge");
+    b.classList.remove("hidden");
+    b.disabled = true;
+    b.textContent = "Add a video first";
+    window.scrollTo({top:0, behavior:"smooth"});
+  });
+})();
+</script>
+</body>
+</html>
