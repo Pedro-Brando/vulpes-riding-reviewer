@@ -256,6 +256,78 @@ input[type=range]:focus-visible{outline:3px solid var(--flare);outline-offset:6p
 .score b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;font-size:19px;color:var(--flare-deep)}
 .score i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
 
+/* ---------- hangar shop ---------- */
+/* these sit after .verdict p on purpose: equal specificity, later rule wins */
+.shop{margin:26px 0 6px;padding-top:22px;border-top:1.5px dashed var(--line);animation:quoteIn .5s .8s both}
+.shop-eyebrow{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-soft);margin:0 0 8px;
+}
+.shop h3{
+  font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;
+  font-size:clamp(19px,4.6vw,25px);line-height:1.15;margin:0 0 8px;color:var(--ink);
+}
+.verdict .shop-intro{
+  margin:0 auto 18px;max-width:42ch;font-size:13.5px;line-height:1.5;
+  color:var(--ink-soft);animation:none;
+}
+.shop-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:12px}
+.shop-item{
+  border:1.5px solid var(--line);border-radius:var(--r-md);
+  background:linear-gradient(180deg,#FFF9FB,#FFF2F7);
+  padding:12px;text-align:left;
+  display:flex;flex-direction:column;gap:8px;
+  transition:transform .2s,box-shadow .2s;
+}
+.shop-item:hover{transform:translateY(-3px);box-shadow:0 12px 24px -16px rgba(57,41,79,.55)}
+.shop-art{
+  background:var(--paper);border:1.5px solid var(--line);border-radius:12px;
+  padding:6px;display:flex;justify-content:center;
+}
+.shop-art svg{width:100%;max-width:120px;height:auto;display:block}
+.shop-badge{
+  align-self:flex-start;
+  font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--flare-deep);background:#FFE9DE;border-radius:99px;padding:3px 8px;
+}
+.shop-item h4{
+  font-family:var(--display);font-variation-settings:"SOFT" 80,"WONK" 1;font-weight:700;
+  font-size:16px;margin:0;color:var(--ink);
+}
+.verdict .shop-item p{
+  margin:0;max-width:none;flex:1 1 auto;
+  font-size:12.5px;line-height:1.45;color:var(--ink-soft);animation:none;
+}
+.shop-buy{position:relative;display:flex;flex-direction:column;gap:8px}
+.price{
+  font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;
+  font-size:19px;color:var(--rosette);
+}
+.price small{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.1em;color:var(--ink-soft);font-weight:400;margin-top:2px}
+.add{
+  font-family:var(--body);font-weight:800;font-size:12.5px;
+  border:0;border-radius:10px;padding:9px 10px;width:100%;cursor:pointer;
+  background:var(--flare);color:#fff;box-shadow:0 3px 0 var(--flare-deep);
+  transition:transform .12s,box-shadow .12s,background .2s,color .2s;
+}
+.add:hover{background:#FF8A52;transform:translateY(-1px);box-shadow:0 4px 0 var(--flare-deep)}
+.add:active{transform:translateY(2px);box-shadow:0 1px 0 var(--flare-deep)}
+.add:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.add.in{background:var(--mint);color:#0E4438;box-shadow:0 3px 0 #2FB79B}
+.pop{
+  position:absolute;left:50%;bottom:32px;font-size:16px;pointer-events:none;
+  animation:pop .95s ease-out forwards;
+}
+@keyframes pop{
+  0%{opacity:0;transform:translate(-50%,4px) scale(.6)}
+  20%{opacity:1}
+  100%{opacity:0;transform:translate(-50%,-40px) scale(1.2)}
+}
+.verdict .basket{
+  margin:16px 0 0;max-width:none;animation:none;
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;color:var(--ink-soft);
+}
+
 /* confetti */
 .confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
 .confetti i{position:absolute;top:-24px;width:9px;height:14px;border-radius:2px;animation:fall linear forwards}
@@ -433,6 +505,129 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
         <div class="score"><b>A+</b><i>Technique</i></div>
         <div class="score"><b>Delighted</b><i>Horse's view</i></div>
       </div>
+      <!-- HANGAR SHOP -->
+      <section class="shop">
+        <svg width="0" height="0" aria-hidden="true" style="position:absolute">
+          <defs>
+            <pattern id="stitch" width="7" height="7" patternUnits="userSpaceOnUse">
+              <path d="M1 5.4 L3.5 1.8 L6 5.4" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.1" stroke-linecap="round"/>
+            </pattern>
+          </defs>
+        </svg>
+
+        <p class="shop-eyebrow">Hangar shop</p>
+        <h3>The horse also deserves a hat</h3>
+        <p class="shop-intro">Hand-crocheted to order by one person who has met a horse. Ear holes measured by eye. Delivery in 6 to 40 weeks.</p>
+
+        <div class="shop-grid">
+
+          <article class="shop-item">
+            <div class="shop-art">
+              <svg viewBox="0 0 120 96" role="img" aria-label="Horse wearing a crocheted bonnet with pom-pom ear cosies">
+                <g stroke="#7A5140" stroke-width="1.5" stroke-linejoin="round">
+                  <path d="M42 32 L45 8 C45 3.5 52.5 3.5 52.5 9 L54.5 32 Z" fill="#C99B7E"/>
+                  <path d="M78 32 L75 8 C75 3.5 67.5 3.5 67.5 9 L65.5 32 Z" fill="#C99B7E"/>
+                  <path d="M38 42 C38 33 46 28 60 28 C74 28 82 33 82 42 L82 66 C82 78 73 86 60 86 C47 86 38 78 38 66 Z" fill="#C99B7E"/>
+                </g>
+                <ellipse cx="60" cy="74" rx="13.5" ry="10" fill="#EFCDB6"/>
+                <circle cx="55" cy="73" r="1.7" fill="#7A5140"/><circle cx="65" cy="73" r="1.7" fill="#7A5140"/>
+                <circle cx="43" cy="63" r="4" fill="#FFB3C4" opacity=".6"/><circle cx="77" cy="63" r="4" fill="#FFB3C4" opacity=".6"/>
+                <circle cx="47.5" cy="53" r="3.4" fill="#39294F"/><circle cx="72.5" cy="53" r="3.4" fill="#39294F"/>
+                <circle cx="48.6" cy="51.8" r="1.2" fill="#fff"/><circle cx="73.6" cy="51.8" r="1.2" fill="#fff"/>
+                <path d="M35 32 C35 24 46 19 60 19 C74 19 85 24 85 32 L85 40 C85 46 74 50 60 50 C46 50 35 46 35 40 Z" fill="#E8547E" stroke="#39294F" stroke-width="1.6"/>
+                <path d="M35 32 C35 24 46 19 60 19 C74 19 85 24 85 32 L85 40 C85 46 74 50 60 50 C46 50 35 46 35 40 Z" fill="url(#stitch)"/>
+                <g stroke="#39294F" stroke-width="1.5" stroke-linejoin="round">
+                  <path d="M43 33 L46 10 C46 5 52 5 52 10.5 L54 33 Z" fill="#FF9AB8"/>
+                  <path d="M77 33 L74 10 C74 5 68 5 68 10.5 L66 33 Z" fill="#FF9AB8"/>
+                </g>
+                <path d="M43 33 L46 10 C46 5 52 5 52 10.5 L54 33 Z" fill="url(#stitch)"/>
+                <path d="M77 33 L74 10 C74 5 68 5 68 10.5 L66 33 Z" fill="url(#stitch)"/>
+                <circle cx="49" cy="7" r="6.5" fill="#FFC94B" stroke="#39294F" stroke-width="1.5"/>
+                <circle cx="71" cy="7" r="6.5" fill="#FFC94B" stroke="#39294F" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <span class="shop-badge">Made to order</span>
+            <h4>The Pom-Pom</h4>
+            <p>Ear cosies with pom-pom tips, worked in her colours. Stays on at a canter, allegedly.</p>
+            <div class="shop-buy">
+              <span class="price">$2,400<small>plus shipping</small></span>
+              <button class="add" type="button" data-price="2400" data-name="The Pom-Pom">Add to basket</button>
+            </div>
+          </article>
+
+          <article class="shop-item">
+            <div class="shop-art">
+              <svg viewBox="0 0 120 96" role="img" aria-label="Horse wearing a wide-brimmed crocheted sun bonnet with a rose">
+                <g stroke="#7A5140" stroke-width="1.5" stroke-linejoin="round">
+                  <path d="M42 32 L45 8 C45 3.5 52.5 3.5 52.5 9 L54.5 32 Z" fill="#C99B7E"/>
+                  <path d="M78 32 L75 8 C75 3.5 67.5 3.5 67.5 9 L65.5 32 Z" fill="#C99B7E"/>
+                  <path d="M38 42 C38 33 46 28 60 28 C74 28 82 33 82 42 L82 66 C82 78 73 86 60 86 C47 86 38 78 38 66 Z" fill="#C99B7E"/>
+                </g>
+                <path d="M46.5 28 L48.8 13 L51.2 28 Z" fill="#FFC2C9"/>
+                <path d="M73.5 28 L71.2 13 L68.8 28 Z" fill="#FFC2C9"/>
+                <ellipse cx="60" cy="74" rx="13.5" ry="10" fill="#EFCDB6"/>
+                <circle cx="55" cy="73" r="1.7" fill="#7A5140"/><circle cx="65" cy="73" r="1.7" fill="#7A5140"/>
+                <circle cx="43" cy="63" r="4" fill="#FFB3C4" opacity=".6"/><circle cx="77" cy="63" r="4" fill="#FFB3C4" opacity=".6"/>
+                <circle cx="47.5" cy="53" r="3.4" fill="#39294F"/><circle cx="72.5" cy="53" r="3.4" fill="#39294F"/>
+                <circle cx="48.6" cy="51.8" r="1.2" fill="#fff"/><circle cx="73.6" cy="51.8" r="1.2" fill="#fff"/>
+                <ellipse cx="60" cy="40" rx="41" ry="10.5" fill="#FFF1D6" stroke="#39294F" stroke-width="1.6"/>
+                <path d="M40 40 C40 25 48 19 60 19 C72 19 80 25 80 40 Z" fill="#FFF1D6" stroke="#39294F" stroke-width="1.6"/>
+                <path d="M40 40 C40 25 48 19 60 19 C72 19 80 25 80 40 Z" fill="url(#stitch)" opacity=".55"/>
+                <path d="M41.5 33 C48 37.5 72 37.5 78.5 33 L80 40 L40 40 Z" fill="#E8547E"/>
+                <g fill="#E8547E" stroke="#39294F" stroke-width="1.1">
+                  <ellipse cx="86" cy="26" rx="3.4" ry="5.4"/>
+                  <ellipse cx="86" cy="26" rx="3.4" ry="5.4" transform="rotate(72 86 32)"/>
+                  <ellipse cx="86" cy="26" rx="3.4" ry="5.4" transform="rotate(144 86 32)"/>
+                  <ellipse cx="86" cy="26" rx="3.4" ry="5.4" transform="rotate(216 86 32)"/>
+                  <ellipse cx="86" cy="26" rx="3.4" ry="5.4" transform="rotate(288 86 32)"/>
+                </g>
+                <circle cx="86" cy="32" r="3.1" fill="#FFC94B" stroke="#39294F" stroke-width="1.1"/>
+              </svg>
+            </div>
+            <span class="shop-badge">1 in stock</span>
+            <h4>The Sunday Bonnet</h4>
+            <p>Wide brim, one crocheted rose. For weather that does not call for a bonnet.</p>
+            <div class="shop-buy">
+              <span class="price">$4,850<small>plus shipping</small></span>
+              <button class="add" type="button" data-price="4850" data-name="The Sunday Bonnet">Add to basket</button>
+            </div>
+          </article>
+
+          <article class="shop-item">
+            <div class="shop-art">
+              <svg viewBox="0 0 120 96" role="img" aria-label="Horse wearing a tiny crocheted top hat">
+                <g stroke="#7A5140" stroke-width="1.5" stroke-linejoin="round">
+                  <path d="M42 32 L45 8 C45 3.5 52.5 3.5 52.5 9 L54.5 32 Z" fill="#C99B7E"/>
+                  <path d="M78 32 L75 8 C75 3.5 67.5 3.5 67.5 9 L65.5 32 Z" fill="#C99B7E"/>
+                  <path d="M38 42 C38 33 46 28 60 28 C74 28 82 33 82 42 L82 66 C82 78 73 86 60 86 C47 86 38 78 38 66 Z" fill="#C99B7E"/>
+                </g>
+                <path d="M46.5 28 L48.8 13 L51.2 28 Z" fill="#FFC2C9"/>
+                <path d="M73.5 28 L71.2 13 L68.8 28 Z" fill="#FFC2C9"/>
+                <ellipse cx="60" cy="74" rx="13.5" ry="10" fill="#EFCDB6"/>
+                <circle cx="55" cy="73" r="1.7" fill="#7A5140"/><circle cx="65" cy="73" r="1.7" fill="#7A5140"/>
+                <circle cx="43" cy="63" r="4" fill="#FFB3C4" opacity=".6"/><circle cx="77" cy="63" r="4" fill="#FFB3C4" opacity=".6"/>
+                <circle cx="47.5" cy="53" r="3.4" fill="#39294F"/><circle cx="72.5" cy="53" r="3.4" fill="#39294F"/>
+                <circle cx="48.6" cy="51.8" r="1.2" fill="#fff"/><circle cx="73.6" cy="51.8" r="1.2" fill="#fff"/>
+                <ellipse cx="60" cy="27" rx="15" ry="4.5" fill="#4A2F5E" stroke="#39294F" stroke-width="1.5"/>
+                <rect x="51" y="4" width="18" height="23" rx="3" fill="#4A2F5E" stroke="#39294F" stroke-width="1.5"/>
+                <rect x="51" y="4" width="18" height="23" rx="3" fill="url(#stitch)" opacity=".8"/>
+                <rect x="51.5" y="18" width="17" height="5" fill="#E8547E"/>
+                <rect x="54" y="8" width="2.4" height="9" rx="1.2" fill="#fff" opacity=".25"/>
+              </svg>
+            </div>
+            <span class="shop-badge">Waitlist: 3 years</span>
+            <h4>The Dressage Topper</h4>
+            <p>Formal. Structurally unnecessary. Sized for one (1) horse head, no returns.</p>
+            <div class="shop-buy">
+              <span class="price">$11,999<small>plus shipping</small></span>
+              <button class="add" type="button" data-price="11999" data-name="The Dressage Topper">Add to basket</button>
+            </div>
+          </article>
+
+        </div>
+        <p class="basket" id="basket" role="status" aria-live="polite">Basket empty. The horse is waiting.</p>
+      </section>
+
       <button class="btn ghost" id="again" type="button">Judge another ride</button>
     </div>
 
@@ -630,8 +825,57 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
     setTimeout(function(){ box.remove(); }, 6200);
   }
 
+  /* ---------- hangar shop ---------- */
+  var basket = {};
+  var addButtons = document.querySelectorAll(".add");
+
+  function paintBasket(){
+    var names = Object.keys(basket), total = 0, i;
+    for(i = 0; i < names.length; i++) total += basket[names[i]];
+    if(!names.length){
+      $("basket").textContent = "Basket empty. The horse is waiting.";
+      return;
+    }
+    $("basket").textContent =
+      "Basket: $" + total.toLocaleString("en-US") +
+      " for " + names.length + (names.length === 1 ? " hat" : " hats") +
+      " · checkout opens never";
+  }
+
+  function yarnPop(btn){
+    if(window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var s = document.createElement("span");
+    s.className = "pop";
+    s.textContent = ["♥", "🧶", "✨"][Math.floor(Math.random() * 3)];
+    btn.parentNode.appendChild(s);
+    setTimeout(function(){ s.remove(); }, 1000);
+  }
+
+  Array.prototype.forEach.call(addButtons, function(btn){
+    btn.addEventListener("click", function(){
+      var name = btn.getAttribute("data-name");
+      if(basket[name]){
+        delete basket[name];
+        btn.classList.remove("in");
+        btn.textContent = "Add to basket";
+      } else {
+        basket[name] = parseInt(btn.getAttribute("data-price"), 10);
+        btn.classList.add("in");
+        btn.textContent = "In the basket ✓";
+        yarnPop(btn);
+      }
+      paintBasket();
+    });
+  });
+
   /* ---------- reset ---------- */
   $("again").addEventListener("click", function(){
+    basket = {};
+    paintBasket();
+    Array.prototype.forEach.call(addButtons, function(b){
+      b.classList.remove("in");
+      b.textContent = "Add to basket";
+    });
     clearTimers();
     running = false;
     if(objectUrl){ URL.revokeObjectURL(objectUrl); objectUrl = null; }

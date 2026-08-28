@@ -10,6 +10,7 @@ Drop in a riding video, set the judging severity, and launch the unit. Every rid
 - Slide the severity from **Gentle** to **Olympic**. VULPES-01 logs it, considers it, and quietly overrides it.
 - Launch: the twin-eye cameras light up, a scanline sweeps the footage, tracking boxes lock onto posture, hooves, and vibes, and the HUD ticks over live telemetry while the analysis quotes rotate.
 - Collect the rosette: **A+ for effort for my pookie :)**
+- Browse the hangar shop: hand-crocheted horse hats at prices no horse has ever justified. The basket adds up. Checkout opens never.
 
 ## Running it
 
