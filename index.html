@@ -288,7 +288,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
 
     <!-- UPLOAD -->
     <div id="uploadPane">
-      <label class="drop" id="drop" for="file" tabindex="0">
+      <label class="drop" id="drop" tabindex="0" role="button">
         <span class="drop-emoji">🐴</span>
         <span class="drop-title" style="display:block">Drop your ride here</span>
         <span class="drop-hint" style="display:block">Or click to pick a video. Trot, canter, jump, standing next to the horse looking lovely, all accepted.</span>
@@ -450,6 +450,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
   $("file").addEventListener("change", function(e){ loadFile(e.target.files[0]); });
 
   var drop = $("drop");
+  drop.addEventListener("click", function(){ $("file").click(); });
   drop.addEventListener("keydown", function(e){
     if(e.key === "Enter" || e.key === " "){ e.preventDefault(); $("file").click(); }
   });
