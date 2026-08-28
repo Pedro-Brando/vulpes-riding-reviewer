@@ -4,19 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vulpes Riding Reviewer</title>
-<meta name="description" content="Certified equestrian judging by a fox with no formal qualifications.">
+<meta name="description" content="Equestrian evaluation by mobile suit VULPES-01, a machine with no formal qualifications.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..800,0..100,0..1;1,9..144,400..800,0..100,0..1&family=Nunito:wght@400;600;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%A6%8A%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ctext y='26' font-size='26'%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E">
 <style>
 :root{
   --blush:#FFEFF5;
   --peri:#EBE4FF;
   --ink:#39294F;
   --ink-soft:#7A6A92;
-  --fox:#FF7A3D;
-  --fox-deep:#E2551C;
+  --flare:#FF7A3D;
+  --flare-deep:#E2551C;
   --rosette:#E8547E;
   --mint:#4FDCC0;
   --gold:#FFC94B;
@@ -53,7 +53,15 @@ body::before{
 
 /* ---------- masthead ---------- */
 .mast{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;margin-bottom:30px}
-.crest{width:82px;height:82px;filter:drop-shadow(0 8px 14px rgba(226,85,28,.28))}
+.crest{width:86px;height:86px;filter:drop-shadow(0 8px 14px rgba(226,85,28,.28))}
+.eye{filter:drop-shadow(0 0 3px rgba(79,220,192,.9))}
+.crest.live .eye{animation:eyePulse 1.15s ease-in-out infinite}
+.crest.live .eye + .eye{animation-delay:.12s}
+@keyframes eyePulse{
+  0%,100%{opacity:1}
+  50%{opacity:.35}
+}
+.crest-sm{width:46px;height:46px;flex:0 0 auto;filter:drop-shadow(0 3px 8px rgba(226,85,28,.3))}
 .eyebrow{
   font-family:var(--mono);font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;
   color:var(--ink-soft);margin:0;
@@ -66,7 +74,7 @@ h1{
   font-weight:700;font-size:clamp(35px,8vw,58px);line-height:.98;letter-spacing:-.02em;
   margin:0;
 }
-h1 em{font-style:italic;color:var(--fox-deep);font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 96}
+h1 em{font-style:italic;color:var(--flare-deep);font-variation-settings:"SOFT" 100,"WONK" 1,"opsz" 96}
 .dek{margin:0;max-width:44ch;color:var(--ink-soft);font-size:15.5px;line-height:1.55}
 
 /* ---------- card ---------- */
@@ -89,7 +97,7 @@ h1 em{font-style:italic;color:var(--fox-deep);font-variation-settings:"SOFT" 100
   transition:border-color .2s,background .2s,transform .2s;
   display:block;width:100%;
 }
-.drop:hover,.drop:focus-visible{border-color:var(--fox);background:linear-gradient(180deg,#FFF4EC,#FFECF3);transform:translateY(-2px)}
+.drop:hover,.drop:focus-visible{border-color:var(--flare);background:linear-gradient(180deg,#FFF4EC,#FFECF3);transform:translateY(-2px)}
 .drop.is-over{border-color:var(--mint);background:#F0FFFB;transform:scale(1.01)}
 .drop-emoji{font-size:38px;line-height:1;display:block;margin-bottom:12px}
 .drop-title{font-family:var(--display);font-variation-settings:"SOFT" 70,"WONK" 1;font-weight:700;font-size:21px;margin:0 0 6px}
@@ -103,7 +111,7 @@ input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events
   margin:12px 2px 0;font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);
   display:flex;justify-content:space-between;gap:12px;align-items:center;
 }
-.linkish{background:none;border:0;padding:0;font:inherit;color:var(--fox-deep);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.linkish{background:none;border:0;padding:0;font:inherit;color:var(--flare-deep);cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 .linkish:hover{color:var(--rosette)}
 
 /* ---------- scan overlay ---------- */
@@ -137,6 +145,14 @@ input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events
   font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
   background:var(--mint);color:#123;padding:1px 5px;border-radius:4px;white-space:nowrap;
 }
+.hud-status{
+  position:absolute;top:15px;left:50%;transform:translateX(-50%);
+  font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--mint);text-shadow:0 1px 4px rgba(0,0,0,.8);
+  display:flex;align-items:center;gap:6px;white-space:nowrap;
+}
+.hud-status b{width:6px;height:6px;border-radius:50%;background:var(--mint);animation:blip 1.05s steps(2,end) infinite}
+@keyframes blip{50%{opacity:.15}}
 .telemetry{
   position:absolute;left:16px;bottom:14px;right:16px;
   font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.82);
@@ -147,7 +163,7 @@ input[type=file]{position:absolute;width:1px;height:1px;opacity:0;pointer-events
 .sev{margin-top:22px;padding-top:20px;border-top:1.5px dashed var(--line)}
 .sev-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:14px}
 .sev-label{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft)}
-.sev-value{font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;font-size:20px;color:var(--fox-deep)}
+.sev-value{font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;font-size:20px;color:var(--flare-deep)}
 input[type=range]{
   -webkit-appearance:none;appearance:none;width:100%;background:transparent;margin:0;cursor:grab;
 }
@@ -162,15 +178,15 @@ input[type=range]::-moz-range-track{
 }
 input[type=range]::-webkit-slider-thumb{
   -webkit-appearance:none;appearance:none;width:30px;height:30px;margin-top:-10px;
-  border-radius:50%;background:var(--paper);border:3px solid var(--fox);
+  border-radius:50%;background:var(--paper);border:3px solid var(--flare);
   box-shadow:0 3px 10px rgba(226,85,28,.4);transition:transform .15s;
 }
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.12)}
 input[type=range]::-moz-range-thumb{
-  width:26px;height:26px;border-radius:50%;background:var(--paper);border:3px solid var(--fox);
+  width:26px;height:26px;border-radius:50%;background:var(--paper);border:3px solid var(--flare);
   box-shadow:0 3px 10px rgba(226,85,28,.4);
 }
-input[type=range]:focus-visible{outline:3px solid var(--fox);outline-offset:6px;border-radius:99px}
+input[type=range]:focus-visible{outline:3px solid var(--flare);outline-offset:6px;border-radius:99px}
 .ticks{display:flex;justify-content:space-between;margin-top:9px;font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft)}
 .quip{
   margin:14px 0 0;font-family:var(--display);font-style:italic;
@@ -183,28 +199,29 @@ input[type=range]:focus-visible{outline:3px solid var(--fox);outline-offset:6px;
   margin-top:22px;width:100%;
   font-family:var(--display);font-variation-settings:"SOFT" 80,"WONK" 1;font-weight:700;
   font-size:20px;letter-spacing:-.01em;
-  color:#fff;background:var(--fox);
+  color:#fff;background:var(--flare);
   border:0;border-radius:var(--r-md);padding:17px 20px;cursor:pointer;
-  box-shadow:0 5px 0 var(--fox-deep);
+  box-shadow:0 5px 0 var(--flare-deep);
   transition:transform .12s,box-shadow .12s,background .2s;
 }
-.btn:hover:not(:disabled){background:#FF8A52;transform:translateY(-2px);box-shadow:0 7px 0 var(--fox-deep)}
-.btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 var(--fox-deep)}
+.btn:hover:not(:disabled){background:#FF8A52;transform:translateY(-2px);box-shadow:0 7px 0 var(--flare-deep)}
+.btn:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 var(--flare-deep)}
 .btn:disabled{background:#E4DCEF;color:#A697B8;box-shadow:0 5px 0 #CFC3E0;cursor:not-allowed}
 .btn:focus-visible{outline:3px solid var(--ink);outline-offset:4px}
-.btn.ghost{background:transparent;color:var(--fox-deep);box-shadow:none;border:2px solid rgba(255,122,61,.5);font-size:16px;padding:13px 20px}
+.btn.ghost{background:transparent;color:var(--flare-deep);box-shadow:none;border:2px solid rgba(255,122,61,.5);font-size:16px;padding:13px 20px}
 .btn.ghost:hover{background:#FFF3EC;transform:none;box-shadow:none}
 
 /* progress */
 .prog{margin-top:20px;display:none}
 .prog.on{display:block}
 .prog-bar{height:10px;border-radius:99px;background:#F0EAF8;border:1.5px solid var(--line);overflow:hidden}
-.prog-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--fox));transition:width .4s ease}
+.prog-fill{height:100%;width:0%;border-radius:99px;background:linear-gradient(90deg,var(--mint),var(--flare));transition:width .4s ease}
+.prog-head{display:flex;align-items:center;gap:14px;margin-top:16px}
 .prog-quote{
-  margin:16px 0 0;text-align:center;
+  margin:0;flex:1 1 auto;
   font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:600;
-  font-size:clamp(17px,4.2vw,21px);line-height:1.35;min-height:2.7em;
-  display:flex;align-items:center;justify-content:center;
+  font-size:clamp(16px,3.9vw,20px);line-height:1.32;min-height:2.7em;
+  display:flex;align-items:center;
 }
 .prog-quote span{animation:quoteIn .45s ease both}
 @keyframes quoteIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -236,7 +253,7 @@ input[type=range]:focus-visible{outline:3px solid var(--fox);outline-offset:6px;
   border:1.5px solid var(--line);border-radius:var(--r-sm);padding:9px 14px;background:#FFF9FB;
   min-width:104px;
 }
-.score b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;font-size:19px;color:var(--fox-deep)}
+.score b{display:block;font-family:var(--display);font-variation-settings:"SOFT" 90,"WONK" 1;font-weight:700;font-size:19px;color:var(--flare-deep)}
 .score i{display:block;font-style:normal;font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
 
 /* confetti */
@@ -264,24 +281,37 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
 
   <header class="mast">
     <svg class="crest" viewBox="0 0 100 100" aria-hidden="true">
-      <path d="M18 22 L14 6 L33 16 Z" fill="#FF7A3D"/>
-      <path d="M20.5 20 L18.5 11 L28.5 16.5 Z" fill="#FFC2C9"/>
-      <path d="M82 22 L86 6 L67 16 Z" fill="#FF7A3D"/>
-      <path d="M79.5 20 L81.5 11 L71.5 16.5 Z" fill="#FFC2C9"/>
-      <path d="M50 14 C74 14 88 30 88 50 C88 72 71 88 50 88 C29 88 12 72 12 50 C12 30 26 14 50 14 Z" fill="#FF7A3D"/>
-      <path d="M50 46 C62 46 70 54 70 64 C70 76 60 86 50 86 C40 86 30 76 30 64 C30 54 38 46 50 46 Z" fill="#FFF6F0"/>
-      <ellipse cx="36" cy="47" rx="5.4" ry="6" fill="#39294F"/>
-      <ellipse cx="64" cy="47" rx="5.4" ry="6" fill="#39294F"/>
-      <circle cx="37.8" cy="45" r="1.9" fill="#fff"/>
-      <circle cx="65.8" cy="45" r="1.9" fill="#fff"/>
-      <ellipse cx="50" cy="61" rx="5" ry="4" fill="#39294F"/>
-      <path d="M50 65 v4 M50 69 c-4 0 -6 -2 -8 -3 M50 69 c4 0 6 -2 8 -3" stroke="#39294F" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <circle cx="26" cy="58" r="5" fill="#FFB3C4" opacity=".75"/>
-      <circle cx="74" cy="58" r="5" fill="#FFB3C4" opacity=".75"/>
+      <!-- ear-guard intakes -->
+      <path d="M19 41 L26 38 L26 60 L19 57 Z" fill="#E8547E"/>
+      <path d="M81 41 L74 38 L74 60 L81 57 Z" fill="#E8547E"/>
+      <!-- helmet shell -->
+      <path d="M50 19 L68 25 L75 39 L75 55 L67 63 L64 77 L57 87 L43 87 L36 77 L33 63 L25 55 L25 39 L32 25 Z" fill="#FFF6F0" stroke="#39294F" stroke-width="2.4" stroke-linejoin="round"/>
+      <!-- cheek shading -->
+      <path d="M33 63 L36 77 L43 87 L50 87 L50 63 Z" fill="#FFE7EF" opacity=".9"/>
+      <!-- visor recess -->
+      <path d="M29 42 L71 42 L71 58 L29 58 Z" fill="#2A1B3D"/>
+      <path class="eye" d="M31 45 L46 43 L46 56 L32 56 Z" fill="#4FDCC0"/>
+      <path class="eye" d="M69 45 L54 43 L54 56 L68 56 Z" fill="#4FDCC0"/>
+      <path d="M46 41 L54 41 L54 59 L46 59 Z" fill="#FFF6F0"/>
+      <!-- mouth vent -->
+      <path d="M38 61 L62 61 L60 75 L40 75 Z" fill="#2A1B3D"/>
+      <g fill="#FFF6F0" opacity=".85">
+        <path d="M42.5 63.5 L45 63.5 L44 72.5 L41.8 72.5 Z"/>
+        <path d="M48.7 63.5 L51.3 63.5 L51.3 72.5 L48.7 72.5 Z"/>
+        <path d="M55 63.5 L57.5 63.5 L58.2 72.5 L56 72.5 Z"/>
+      </g>
+      <!-- vulcans -->
+      <circle cx="30.5" cy="62" r="2.6" fill="#FFC94B"/>
+      <circle cx="69.5" cy="62" r="2.6" fill="#FFC94B"/>
+      <!-- V-fin, swept back like ears -->
+      <path d="M50 31 L4 11 L13 27 L48 38 Z" fill="#FFC94B"/>
+      <path d="M50 31 L96 11 L87 27 L52 38 Z" fill="#FFC94B"/>
+      <path d="M50 8 L46 33 L54 33 Z" fill="#FFC94B"/>
+      <path d="M50 28 L55.5 34 L50 40 L44.5 34 Z" fill="#E8547E" stroke="#39294F" stroke-width="1.6" stroke-linejoin="round"/>
     </svg>
-    <p class="eyebrow">Panel of one fox</p>
+    <p class="eyebrow">Mobile suit VULPES-01 &middot; evaluation type</p>
     <h1>Vulpes <em>Riding</em> Reviewer</h1>
-    <p class="dek">Certified equestrian judging by a fox with no formal qualifications. Your video stays on your device, it is only ever watched by the fox.</p>
+    <p class="dek">A custom-painted mobile suit with no formal equestrian qualifications, repurposed as a riding judge. Your video stays on your device, it is only ever seen by the machine.</p>
   </header>
 
   <main class="card">
@@ -306,6 +336,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
           <div class="scan-line"></div>
           <div class="corner tl"></div><div class="corner tr"></div>
           <div class="corner bl"></div><div class="corner br"></div>
+          <div class="hud-status"><b></b>VULPES-01 // eval mode</div>
           <div class="tracker" id="t1" style="left:18%;top:22%;width:30%;height:34%"><span>posture</span></div>
           <div class="tracker" id="t2" style="left:56%;top:52%;width:24%;height:28%"><span>hooves</span></div>
           <div class="tracker" id="t3" style="left:30%;top:60%;width:22%;height:22%"><span>vibes</span></div>
@@ -323,7 +354,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
       </div>
       <input type="range" id="sev" min="1" max="5" step="1" value="3" aria-label="Judging severity" aria-describedby="quip">
       <div class="ticks"><span>Gentle</span><span>Fair</span><span>Strict</span><span>Harsh</span><span>Olympic</span></div>
-      <p class="quip" id="quip">The fox is taking notes.</p>
+      <p class="quip" id="quip">VULPES-01 is logging every frame.</p>
     </div>
 
     <button class="btn" id="judge" disabled>Add a video first</button>
@@ -331,7 +362,25 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
     <!-- PROGRESS -->
     <div class="prog" id="prog">
       <div class="prog-bar"><div class="prog-fill" id="fill"></div></div>
-      <p class="prog-quote" id="quote" role="status" aria-live="polite"><span>Warming up the fox…</span></p>
+      <div class="prog-head">
+        <svg class="crest crest-sm live" viewBox="0 0 100 100" aria-hidden="true">
+          <path d="M19 41 L26 38 L26 60 L19 57 Z" fill="#E8547E"/>
+          <path d="M81 41 L74 38 L74 60 L81 57 Z" fill="#E8547E"/>
+          <path d="M50 19 L68 25 L75 39 L75 55 L67 63 L64 77 L57 87 L43 87 L36 77 L33 63 L25 55 L25 39 L32 25 Z" fill="#FFF6F0" stroke="#39294F" stroke-width="2.4" stroke-linejoin="round"/>
+          <path d="M29 42 L71 42 L71 58 L29 58 Z" fill="#2A1B3D"/>
+          <path class="eye" d="M31 45 L46 43 L46 56 L32 56 Z" fill="#4FDCC0"/>
+          <path class="eye" d="M69 45 L54 43 L54 56 L68 56 Z" fill="#4FDCC0"/>
+          <path d="M46 41 L54 41 L54 59 L46 59 Z" fill="#FFF6F0"/>
+          <path d="M38 61 L62 61 L60 75 L40 75 Z" fill="#2A1B3D"/>
+          <circle cx="30.5" cy="62" r="2.6" fill="#FFC94B"/>
+          <circle cx="69.5" cy="62" r="2.6" fill="#FFC94B"/>
+          <path d="M50 31 L4 11 L13 27 L48 38 Z" fill="#FFC94B"/>
+          <path d="M50 31 L96 11 L87 27 L52 38 Z" fill="#FFC94B"/>
+          <path d="M50 8 L46 33 L54 33 Z" fill="#FFC94B"/>
+          <path d="M50 28 L55.5 34 L50 40 L44.5 34 Z" fill="#E8547E" stroke="#39294F" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+        <p class="prog-quote" id="quote" role="status" aria-live="polite"><span>Spooling up the judgement core…</span></p>
+      </div>
       <p class="prog-pct" id="pct">0% reviewed</p>
     </div>
 
@@ -366,7 +415,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
         <text x="95" y="97" text-anchor="middle" font-family="Fraunces,Georgia,serif" font-weight="700" font-size="44" fill="#E2551C">A+</text>
       </svg>
       <h2>A+ for effort for my pookie :)</h2>
-      <p>Ruling is final. The severity slider was noted, considered, and gently ignored. The fox has left the arena.</p>
+      <p>Ruling is final. The severity setting was logged, considered, and quietly overridden. VULPES-01 has returned to the hangar.</p>
       <div class="scores">
         <div class="score"><b>A+</b><i>Posture</i></div>
         <div class="score"><b>A+</b><i>Technique</i></div>
@@ -379,7 +428,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
 
   <footer>
     Vulpes Riding Reviewer &middot; No videos are uploaded anywhere<br>
-    Judging conducted entirely in your browser by one (1) fox
+    Evaluation conducted entirely in your browser by one (1) mobile suit
   </footer>
 </div>
 
@@ -388,11 +437,11 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
   var $ = function(id){ return document.getElementById(id); };
 
   var SEVERITY = [
-    { name:"Gentle",  quip:"The fox is here to be nice, mostly." },
-    { name:"Fair",    quip:"The fox has put on its reading glasses." },
-    { name:"Strict",  quip:"The fox is taking notes." },
-    { name:"Harsh",   quip:"The fox has requested a slow-motion replay." },
-    { name:"Olympic", quip:"The fox has flown in a second fox." }
+    { name:"Gentle",  quip:"VULPES-01 has powered down its weapons." },
+    { name:"Fair",    quip:"VULPES-01 has opened the evaluation manual." },
+    { name:"Strict",  quip:"VULPES-01 is logging every frame." },
+    { name:"Harsh",   quip:"VULPES-01 has requested a slow-motion replay." },
+    { name:"Olympic", quip:"VULPES-01 has launched a second unit for a second opinion." }
   ];
 
   var QUOTES = [
@@ -400,18 +449,18 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
     "Measuring posture against 400 years of dressage doctrine…",
     "Counting hooves. Expecting four.",
     "Consulting the horse for a second opinion…",
-    "Assessing rider and horse vibe alignment…",
+    "Assessing pilot and horse vibe synchronisation…",
     "Calibrating stirrup enthusiasm…",
     "Reviewing the trot. Reviewing the trot again.",
-    "Asking the fox panel to stop arguing…",
+    "Beam saber not required for this manoeuvre.",
     "Checking whether the horse is also having a nice time…",
     "Cross-referencing against Olympic footage. You're taller.",
-    "Weighing effort. It is heavy.",
+    "Newtype reflexes detected in the corner at speed…",
     "Running canter smoothness diagnostics…",
     "Detecting one very good girl. Possibly two.",
     "Comparing with last week. You improved.",
     "Scanning for helmet. Found it. Excellent.",
-    "Deducting points for nothing so far…",
+    "Judgement core overheating. Cause: you look great.",
     "Consulting the rulebook. The rulebook says be nice."
   ];
 
@@ -432,7 +481,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
   function loadFile(f){
     if(!f) return;
     if(f.type && f.type.indexOf("video") !== 0){
-      $("quip").textContent = "The fox only reviews videos. That was not a video.";
+      $("quip").textContent = "VULPES-01 only reviews video. That was not video.";
       return;
     }
     if(objectUrl) URL.revokeObjectURL(objectUrl);
@@ -444,7 +493,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
     $("videoPane").classList.remove("hidden");
     var b = $("judge");
     b.disabled = false;
-    b.textContent = "Judge my ride";
+    b.textContent = "Launch VULPES-01";
   }
 
   $("file").addEventListener("change", function(e){ loadFile(e.target.files[0]); });
@@ -490,7 +539,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
     pool.unshift("Judging based on severity: " + sevName + "…");
 
     $("judge").disabled = true;
-    $("judge").textContent = "The fox is watching…";
+    $("judge").textContent = "VULPES-01 has launched…";
     sev.disabled = true;
     $("swap").classList.add("hidden");
     $("scan").classList.add("on");
@@ -520,7 +569,7 @@ footer{margin-top:26px;text-align:center;font-family:var(--mono);font-size:10.5p
 
     intervals.push(setInterval(function(){
       $("tele1").textContent = "stirrup.sync " + Math.floor(rand(88,100)) + "%";
-      $("tele2").textContent = "mane.gloss " + Math.floor(rand(90,100)) + "%";
+      $("tele2").textContent = "APU " + Math.floor(rand(90,100)) + "% · mane.gloss max";
       $("tele3").textContent = Math.random() > .5 ? "good.girl confirmed" : "effort ████████";
     }, 700));
 
